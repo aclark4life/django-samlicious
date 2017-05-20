@@ -8,7 +8,7 @@ from onelogin.saml2 import utils
 from lxml import etree
 
 SAML2_RESPONSE_ISSUER = 'https://dj-saml-idp.aclark.net'
-SAML2_RESPONSE_DEST = 'https://aclark.absorblms.com/account/saml'
+SAML2_RESPONSE_DEST = 'https://aclark.myabsorb.com/account/saml'
 
 onelogin_saml2_utils = utils.OneLogin_Saml2_Utils()
 
