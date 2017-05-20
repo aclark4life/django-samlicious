@@ -61,7 +61,7 @@ def create_auth_condition(assertion):
     conditions.not_before = datetime(2000, 1, 1, 1, 3)
     conditions.not_on_or_after = datetime(2000, 1, 1, 1, 9)
     condition = schema.AudienceRestriction()
-    condition.audiences = 'https://sp.example.com/SAML2'
+    condition.audiences = SAML2_RESPONSE_DEST
     conditions.condition = condition
     return conditions
 
