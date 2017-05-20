@@ -9,6 +9,12 @@ from lxml import etree
 
 import base64
 
+from signxml import XMLSigner, XMLVerifier
+
+from xml.etree import ElementTree
+
+import os
+
 SAML2_RESPONSE_ISSUER = 'https://dj-saml-idp.aclark.net'
 SAML2_RESPONSE_DEST_URL = {
     'absorb': 'https://aclark.myabsorb.com/account/saml',
@@ -16,6 +22,9 @@ SAML2_RESPONSE_DEST_URL = {
 }
 SAML2_RESPONSE_PRINCIPAL = 'aclark@aclark.net'
 
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+PUBLIC_CERT = os.path.join(['project', PUBLIC_CERT])
+PRIVATE_KEY = os.path.join(['project', PRIVATE_KEY])
 
 onelogin_saml2_utils = utils.OneLogin_Saml2_Utils()
 
@@ -84,6 +93,13 @@ def create_auth_condition(assertion, destination):
     conditions.condition = condition
 
     return conditions
+
+def sign_data()
+    cert = open(PUBLIC_CERT).read()
+    key = open(PRIVATE_KEY).read()
+    root = ElementTree.fromstring(data_to_sign)
+    signed_root = XMLSigner().sign(root, key=key, cert=cert)
+    verified_data = XMLVerifier().verify(signed_root).signed_xml
 
 def create_saml_response(destination):
 
