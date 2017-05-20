@@ -109,8 +109,6 @@ def create_saml_response(destination):
     statement, reference = create_auth_statement(assertion)
     # conditions = create_auth_condition(assertion, destination)
 
-    sign(document.serialize(), key)
-
     return document.tostring()
 
 
