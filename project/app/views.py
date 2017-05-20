@@ -15,12 +15,16 @@ onelogin_saml2_utils = utils.OneLogin_Saml2_Utils()
 # Create your views here.
 def create_document():
     document = schema.Response()
-#    document.id = '11111111-1111-1111-1111-111111111111'
-#    document.in_response_to = '22222222-2222-2222-2222-222222222222'
-#    document.issue_instant = datetime(2000, 1, 1, 1)
+
+    # Looks like saml lib sets these if we don't, nice. And having saml lib set them is preferred.
+    # document.id = '11111111-1111-1111-1111-111111111111'
+    # document.in_response_to = '22222222-2222-2222-2222-222222222222'
+    # document.issue_instant = datetime(2000, 1, 1, 1)
+
     document.issuer = SAML2_RESPONSE_ISSUER
     document.destination = SAML2_RESPONSE_DEST
     document.status.code.value = schema.StatusCode.SUCCESS
+
     return document
 
 def create_assertion(document):
