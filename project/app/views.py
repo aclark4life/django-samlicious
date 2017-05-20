@@ -94,7 +94,6 @@ def create_saml_response(destination):
 def home(request):
     # Configure destination here based on menu selection
     destination = request.GET.get('destination')
-    import pdb ; pdb.set_trace()
     try:
         destination = SAML2_RESPONSE_DEST_URL[destination]
     except KeyError:
