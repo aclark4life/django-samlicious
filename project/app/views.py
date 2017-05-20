@@ -8,8 +8,17 @@ from onelogin.saml2 import utils
 saml2_utils = utils.OneLogin_Saml2_Utils()
 
 # Create your views here.
+def create_document():
+    document = schema.Response()
+    document.id = '11111111-1111-1111-1111-111111111111'
+    document.in_response_to = '22222222-2222-2222-2222-222222222222'
+    document.issue_instant = datetime(2000, 1, 1, 1)
+    document.issuer = 'https://idp.example.org/SAML2'
+    document.destination = 'https://sp.example.com/SAML2/SSO/POST'
+    document.status.code.value = schema.StatusCode.SUCCESS
+    return document
+
 def create_assertion(document):
-    # Create an assertion for the response.
     document.assertions = assertion = schema.Assertion()
     assertion.id = '33333333-3333-3333-3333-333333333333'
     assertion.issue_instant = datetime(2000, 1, 1, 2)
@@ -17,7 +26,6 @@ def create_assertion(document):
     return assertion
 
 def create_subject(assertion):
-    # Create a subject.
     assertion.subject = schema.Subject()
     assertion.subject.principal = '44444444-4444-4444-4444-444444444444'
     assertion.subject.principal.format = schema.NameID.Format.TRANSIENT
@@ -31,7 +39,6 @@ def create_subject(assertion):
     return data
 
 def create_auth_statement(assertion):
-    # Create an authentication statement.
     statement = schema.AuthenticationStatement()
     assertion.statements.append(statement)
     statement.authn_instant = datetime(2000, 1, 1, 1, 3)
@@ -41,7 +48,6 @@ def create_auth_statement(assertion):
     return statement, reference
 
 def create_auth_condition(assertion):
-    # Create a authentication condition.
     assertion.conditions = conditions = schema.Conditions()
     conditions.not_before = datetime(2000, 1, 1, 1, 3)
     conditions.not_on_or_after = datetime(2000, 1, 1, 1, 9)
@@ -51,18 +57,13 @@ def create_auth_condition(assertion):
     return conditions
 
 def create_saml_response():
-    document = schema.Response()
-    document.id = '11111111-1111-1111-1111-111111111111'
-    document.in_response_to = '22222222-2222-2222-2222-222222222222'
-    document.issue_instant = datetime(2000, 1, 1, 1)
-    document.issuer = 'https://idp.example.org/SAML2'
-    document.destination = 'https://sp.example.com/SAML2/SSO/POST'
-    document.status.code.value = schema.StatusCode.SUCCESS
 
+    document = create_document()
     assertion = create_assertion(document)
     data = create_subject(assertion)
     statement, reference = create_auth_statement(assertion)
-    #conditions = create_auth_condition(assertion)
+    conditions = create_auth_condition(assertion)
+
     return document.tostring()
 
 def home(request):
