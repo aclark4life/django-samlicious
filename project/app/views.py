@@ -7,7 +7,10 @@ from onelogin.saml2 import utils
 
 from lxml import etree
 
-saml2_utils = utils.OneLogin_Saml2_Utils()
+SAML2_RESPONSE_ISSUER = 'https://dj-saml-idp.aclark.net'
+SAML2_RESPONSE_DEST = 'https://aclark.absorblms.com/account/saml'
+
+onelogin_saml2_utils = utils.OneLogin_Saml2_Utils()
 
 # Create your views here.
 def create_document():
@@ -15,8 +18,8 @@ def create_document():
     document.id = '11111111-1111-1111-1111-111111111111'
     document.in_response_to = '22222222-2222-2222-2222-222222222222'
     document.issue_instant = datetime(2000, 1, 1, 1)
-    document.issuer = 'https://idp.example.org/SAML2'
-    document.destination = 'https://sp.example.com/SAML2/SSO/POST'
+    document.issuer = SAML2_RESPONSE_ISSUER
+    document.destination = SAML2_RESPONSE_DEST
     document.status.code.value = schema.StatusCode.SUCCESS
     return document
 
@@ -76,7 +79,7 @@ def home(request):
     saml_response_pretty = etree.tostring(root, pretty_print=True)
 
     context = {
-        'deflated_and_base64_encoded_saml_response': saml2_utils.deflate_and_base64_encode(saml_response),
+        'deflated_and_base64_encoded_saml_response': onelogin_saml2_utils.deflate_and_base64_encode(saml_response),
         'saml_response': saml_response_pretty,
     }
     return render(request, 'home.html', context)
