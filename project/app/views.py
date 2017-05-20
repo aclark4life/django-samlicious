@@ -9,8 +9,6 @@ from lxml import etree
 
 import base64
 
-from signxml import XMLSigner, XMLVerifier
-
 from xml.etree import ElementTree
 
 import os
@@ -103,9 +101,6 @@ def create_auth_condition(assertion, destination):
 def sign_data():
     cert = open(PUBLIC_CERT).read()
     key = open(PRIVATE_KEY).read()
-    root = ElementTree.fromstring(data_to_sign)
-    signed_root = XMLSigner().sign(root, key=key, cert=cert)
-    verified_data = XMLVerifier().verify(signed_root).signed_xml
 
 
 def create_saml_response(destination):
