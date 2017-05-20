@@ -14,6 +14,7 @@ SAML2_RESPONSE_DEST_URL = {
     'absorb': 'https://aclark.myabsorb.com/account/saml',
     'testshib': 'https://sp.testshib.org/Shibboleth.sso/SAML2/POST',
 }
+SAML2_RESPONSE_PRINCIPAL = 'aclark@aclark.net'
 
 
 onelogin_saml2_utils = utils.OneLogin_Saml2_Utils()
@@ -47,6 +48,7 @@ def create_subject(assertion, destination):
     assertion.subject = schema.Subject()
 
     # assertion.subject.principal = '44444444-4444-4444-4444-444444444444'
+    assertion.subject.principal = SAML2_RESPONSE_PRINCIPAL
 
     assertion.subject.principal.format = schema.NameID.Format.TRANSIENT
     data = schema.SubjectConfirmationData()
