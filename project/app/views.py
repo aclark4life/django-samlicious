@@ -7,6 +7,8 @@ from onelogin.saml2 import utils
 
 from lxml import etree
 
+import base64
+
 SAML2_RESPONSE_ISSUER = 'https://dj-saml-idp.aclark.net'
 SAML2_RESPONSE_DEST_URL = {
     'absorb': 'https://aclark.myabsorb.com/account/saml',
@@ -106,7 +108,8 @@ def home(request):
     saml_response_pretty = etree.tostring(root, pretty_print=True)
 
     context = {
-        'deflated_and_base64_encoded_saml_response': onelogin_saml2_utils.deflate_and_base64_encode(saml_response),
+#        'deflated_and_base64_encoded_saml_response': onelogin_saml2_utils.deflate_and_base64_encode(saml_response),
+        'deflated_and_base64_encoded_saml_response': base64.b64encode(saml_response),
         'saml_response': saml_response_pretty,
         'saml2_response_destination': destination,
     }
