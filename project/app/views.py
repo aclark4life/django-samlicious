@@ -14,7 +14,7 @@ SAML2_RESPONSE_DEST_URL = {
 }
 
 # Configure destination here
-SAML2_RESPONSE_DEST = SAML2_RESPONSE_URL['testshib']
+SAML2_RESPONSE_DEST = SAML2_RESPONSE_DEST_URL['testshib']
 
 onelogin_saml2_utils = utils.OneLogin_Saml2_Utils()
 
