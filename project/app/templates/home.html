@@ -65,7 +65,12 @@
       <div class="starter-template">
         <h1>Bootstrap starter template</h1>
         <p class="lead">Use this document as a way to quickly start any new project.<br> All you get is this text and a mostly barebones HTML document.</p>
-        <button class="btn-block btn-lg">Absorb LMS</button>
+        <form action="https://aclark.myabsorb.com/account/saml" method="POST" id="samlform">
+          SamlResponse <br><textarea name="samlresponse" id="samlresponse" rows="25" cols="50">...Base64 Encoded SAMLResponse and Assertion...</textarea><br><br>
+          RelayState <br><input type="text" name="relaystate" id="relaystate" value="...DeepLink URL..." size="100"><br>
+          <br>
+          <button type="submit" class="btn-block btn-lg">Absorb LMS</button>
+        </form>
       </div>
 
     </div><!-- /.container -->
