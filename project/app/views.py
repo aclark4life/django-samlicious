@@ -94,7 +94,7 @@ def create_auth_condition(assertion, destination):
 
     return conditions
 
-def sign_data()
+def sign_data():
     cert = open(PUBLIC_CERT).read()
     key = open(PRIVATE_KEY).read()
     root = ElementTree.fromstring(data_to_sign)
