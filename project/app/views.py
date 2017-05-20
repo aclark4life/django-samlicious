@@ -82,6 +82,7 @@ def create_auth_condition(assertion, destination):
     condition = schema.AudienceRestriction()
     condition.audiences = destination
     conditions.condition = condition
+
     return conditions
 
 def create_saml_response(destination):
@@ -91,7 +92,7 @@ def create_saml_response(destination):
     assertion = create_assertion(document)
     data = create_subject(assertion, destination)
     statement, reference = create_auth_statement(assertion)
-    conditions = create_auth_condition(assertion, destination)
+    # conditions = create_auth_condition(assertion, destination)
 
     return document.tostring()
 
