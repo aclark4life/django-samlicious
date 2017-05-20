@@ -333,4 +333,4 @@ vagrant-update:
 
 # SAML
 deploy:
-	ssh saml "cd /srv/django-samlicious ; sudo -u apache git pull ; sudo systemctl restart httpd" 
+	ssh saml "cd /srv/django-samlicious ; sudo -u apache make install; sudo -u apache git pull ; sudo systemctl restart httpd" 
