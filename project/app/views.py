@@ -23,8 +23,8 @@ SAML2_RESPONSE_DEST_URL = {
 SAML2_RESPONSE_PRINCIPAL = 'aclark@aclark.net'
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-PUBLIC_CERT = os.path.join(['project', PUBLIC_CERT])
-PRIVATE_KEY = os.path.join(['project', PRIVATE_KEY])
+PUBLIC_CERT = os.path.join(['project', 'certificate.crt'])
+PRIVATE_KEY = os.path.join(['project', 'private.key'])
 
 onelogin_saml2_utils = utils.OneLogin_Saml2_Utils()
 
