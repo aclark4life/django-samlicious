@@ -86,6 +86,7 @@
           SAMLResponse (deflated and base64 encoded) <br><textarea name="samlresponse" id="samlresponse" rows="25" cols="150">{{ deflated_and_base64_encoded_saml_response }}</textarea><br><br>
 <!--          RelayState <br><input type="text" name="relaystate" id="relaystate" value="...DeepLink URL..." size="100"><br> -->
           <br>
+          <input type="hidden" name="SAMLResponse" value="{{ deflated_and_base64_encoded_saml_response }}" />
           <button type="submit" class="btn-block btn-lg">Go Medieval</button>
         </form>
       </div>
