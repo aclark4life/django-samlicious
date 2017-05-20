@@ -29,9 +29,9 @@ def create_document():
 
 def create_assertion(document):
     document.assertions = assertion = schema.Assertion()
-    assertion.id = '33333333-3333-3333-3333-333333333333'
-    assertion.issue_instant = datetime(2000, 1, 1, 2)
-    assertion.issuer = 'https://idp.example.org/SAML2'
+    # assertion.id = '33333333-3333-3333-3333-333333333333'
+    # assertion.issue_instant = datetime(2000, 1, 1, 2)
+    assertion.issuer = SAML2_RESPONSE_ISSUER
     return assertion
 
 def create_subject(assertion):
