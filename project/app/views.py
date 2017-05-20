@@ -50,8 +50,8 @@ def create_subject(assertion):
 def create_auth_statement(assertion):
     statement = schema.AuthenticationStatement()
     assertion.statements.append(statement)
-    statement.authn_instant = datetime(2000, 1, 1, 1, 3)
-    statement.session_index = '33333333-3333-3333-3333-333333333333'
+    # statement.authn_instant = datetime(2000, 1, 1, 1, 3)
+    # statement.session_index = '33333333-3333-3333-3333-333333333333'
     reference = schema.AuthenticationContextReference
     statement.context.reference = reference.PASSWORD_PROTECTED_TRANSPORT
     return statement, reference
