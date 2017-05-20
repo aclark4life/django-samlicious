@@ -55,7 +55,9 @@ def create_saml_response():
     return document.tostring()
 
 def home(request):
+    saml_response = create_saml_response()
     context = {
-        'saml_response': saml2_utils.deflate_and_base64_encode(create_saml_response())
+        'deflated_and_base64_encoded_saml_response': saml2_utils.deflate_and_base64_encode(saml_response),
+        'saml_response': saml_response,
     }
     return render(request, 'home.html', context)
