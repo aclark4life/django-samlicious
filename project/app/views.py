@@ -36,12 +36,12 @@ def create_assertion(document):
 
 def create_subject(assertion):
     assertion.subject = schema.Subject()
-    assertion.subject.principal = '44444444-4444-4444-4444-444444444444'
+    # assertion.subject.principal = '44444444-4444-4444-4444-444444444444'
     assertion.subject.principal.format = schema.NameID.Format.TRANSIENT
     data = schema.SubjectConfirmationData()
-    data.in_response_to = '22222222-2222-2222-2222-222222222222'
-    data.not_on_or_after = datetime(2000, 1, 1, 1, 10)
-    data.recipient = 'https://sp.example.com/SAML2/SSO/POST'
+    # data.in_response_to = '22222222-2222-2222-2222-222222222222'
+    # data.not_on_or_after = datetime(2000, 1, 1, 1, 10)
+    data.recipient = SAML2_RESPONSE_DEST
     confirmation = schema.SubjectConfirmation()
     confirmation.data = data
     assertion.subject.confirmation = confirmation
