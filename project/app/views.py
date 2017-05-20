@@ -109,10 +109,11 @@ def create_saml_response(destination):
     statement, reference = create_auth_statement(assertion)
     # conditions = create_auth_condition(assertion, destination)
 
-    # xml_document = document.serialize()
-    # sign(xml_document, key)
-    # return etree.tostring(xml_document)
-    return document.tostring()
+    xml_document = document.serialize()
+    sign(xml_document, key)
+    return etree.tostring(xml_document)
+
+    # return document.tostring()
 
 
 def home(request):
