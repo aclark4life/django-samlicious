@@ -13,13 +13,12 @@ SAML2_RESPONSE_DEST_URL = {
     'testshib': 'https://sp.testshib.org/Shibboleth.sso/SAML2/POST',
 }
 
-# Configure destination here
-SAML2_RESPONSE_DEST = SAML2_RESPONSE_DEST_URL['absorb']
 
 onelogin_saml2_utils = utils.OneLogin_Saml2_Utils()
 
 # Create your views here.
-def create_document():
+def create_document(destination):
+
     document = schema.Response()
 
     # Looks like saml lib sets these if we don't, nice. And having saml lib set them is preferred.
@@ -28,7 +27,7 @@ def create_document():
     # document.issue_instant = datetime(2000, 1, 1, 1)
 
     document.issuer = SAML2_RESPONSE_ISSUER
-    document.destination = SAML2_RESPONSE_DEST
+    document.destination = destination
     document.status.code.value = schema.StatusCode.SUCCESS
 
     return document
@@ -42,7 +41,7 @@ def create_assertion(document):
     assertion.issuer = SAML2_RESPONSE_ISSUER
     return assertion
 
-def create_subject(assertion):
+def create_subject(assertion, destination):
     assertion.subject = schema.Subject()
 
     # assertion.subject.principal = '44444444-4444-4444-4444-444444444444'
@@ -53,7 +52,7 @@ def create_subject(assertion):
     # data.in_response_to = '22222222-2222-2222-2222-222222222222'
     # data.not_on_or_after = datetime(2000, 1, 1, 1, 10)
 
-    data.recipient = SAML2_RESPONSE_DEST
+    data.recipient = destination
     confirmation = schema.SubjectConfirmation()
     confirmation.data = data
     assertion.subject.confirmation = confirmation
@@ -70,29 +69,37 @@ def create_auth_statement(assertion):
     statement.context.reference = reference.PASSWORD_PROTECTED_TRANSPORT
     return statement, reference
 
-def create_auth_condition(assertion):
+def create_auth_condition(assertion, destination):
     assertion.conditions = conditions = schema.Conditions()
 
     # conditions.not_before = datetime(2000, 1, 1, 1, 3)
     # conditions.not_on_or_after = datetime(2000, 1, 1, 1, 9)
 
     condition = schema.AudienceRestriction()
-    condition.audiences = SAML2_RESPONSE_DEST
+    condition.audiences = destination
     conditions.condition = condition
     return conditions
 
-def create_saml_response():
+def create_saml_response(destination):
 
-    document = create_document()
+
+    document = create_document(destination)
     assertion = create_assertion(document)
-    data = create_subject(assertion)
+    data = create_subject(assertion, destination)
     statement, reference = create_auth_statement(assertion)
-    conditions = create_auth_condition(assertion)
+    conditions = create_auth_condition(assertion, destination)
 
     return document.tostring()
 
 def home(request):
-    saml_response = create_saml_response()
+    # Configure destination here based on menu selection
+    destination = request.GET.get('destination')
+    try:
+        destination = SAML2_RESPONSE_DEST_URL[destination]
+    except KeyError:
+        destination = SAML2_RESPONSE_DEST_URL['absorb']
+
+    saml_response = create_saml_response(destination)
 
     # http://stackoverflow.com/a/3974112
     root = etree.fromstring(saml_response)
@@ -101,6 +108,6 @@ def home(request):
     context = {
         'deflated_and_base64_encoded_saml_response': onelogin_saml2_utils.deflate_and_base64_encode(saml_response),
         'saml_response': saml_response_pretty,
-        'saml2_response_destination': SAML2_RESPONSE_DEST,
+        'saml2_response_destination': destination,
     }
     return render(request, 'home.html', context)
