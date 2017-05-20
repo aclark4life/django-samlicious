@@ -330,3 +330,7 @@ vagrant-up:
 	vagrant up --provider virtualbox
 vagrant-update:
 	vagrant box update
+
+# SAML
+deploy:
+	ssh saml "cd /srv/django-samlicious ; sudo -u apache git pull ; sudo systemctl restart httpd" 
