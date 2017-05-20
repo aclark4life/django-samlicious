@@ -2,14 +2,13 @@ from django.shortcuts import render
 
 from datetime import datetime
 from saml import schema
+from saml import sign
 
 # from onelogin.saml2 import utils
 
-from lxml import etree
-
 import base64
 
-from xml.etree import ElementTree
+from lxml import etree
 
 import os
 
@@ -21,8 +20,12 @@ SAML2_RESPONSE_DEST_URL = {
 SAML2_RESPONSE_PRINCIPAL = 'aclark@aclark.net'
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-PUBLIC_CERT = os.path.join(['project', 'certificate.crt'])
-PRIVATE_KEY = os.path.join(['project', 'private.key'])
+
+PUBLIC_CERT = os.path.join(BASE_DIR, 'certificate.crt')
+PRIVATE_KEY = os.path.join(BASE_DIR, 'private.key')
+
+cert = open(PUBLIC_CERT).read()
+key = open(PRIVATE_KEY).read()
 
 # onelogin_saml2_utils = utils.OneLogin_Saml2_Utils()
 
@@ -98,11 +101,6 @@ def create_auth_condition(assertion, destination):
     return conditions
 
 
-def sign_data():
-    cert = open(PUBLIC_CERT).read()
-    key = open(PRIVATE_KEY).read()
-
-
 def create_saml_response(destination):
 
     document = create_document(destination)
@@ -110,6 +108,8 @@ def create_saml_response(destination):
     data = create_subject(assertion, destination)
     statement, reference = create_auth_statement(assertion)
     # conditions = create_auth_condition(assertion, destination)
+
+    sign(document.serialize(), key)
 
     return document.tostring()
 
