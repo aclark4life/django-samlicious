@@ -65,7 +65,8 @@
       <div class="starter-template">
         <h1>Bootstrap starter template</h1>
         <p class="lead">Use this document as a way to quickly start any new project.<br> All you get is this text and a mostly barebones HTML document.</p>
-        <h2>SAMLResponse destination: {{ saml2_response_destination }}</h2>
+        <h2>SAMLResponse destination</h2>
+        <p>{{ saml2_response_destination }}</p>
         <form class="form" action="{{ saml2_response_destination }}" method="POST" id="samlform">
           SAMLResponse <br><textarea rows="25" cols="150">{{ saml_response }}</textarea><br><br>
           SAMLResponse (deflated and base64 encoded) <br><textarea name="samlresponse" id="samlresponse" rows="25" cols="150">{{ deflated_and_base64_encoded_saml_response }}</textarea><br><br>
