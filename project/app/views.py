@@ -87,10 +87,9 @@ def create_auth_condition(assertion, destination):
 
 def create_saml_response(destination):
 
-
     document = create_document(destination)
     assertion = create_assertion(document)
-    data = create_subject(assertion, destination)
+    # data = create_subject(assertion, destination)
     statement, reference = create_auth_statement(assertion)
     # conditions = create_auth_condition(assertion, destination)
 
