@@ -72,7 +72,7 @@
 -->
 
         <!-- http://stackoverflow.com/a/7231215 -->
-        <form class="form" action="{% url 'home' %}" method="GET" id="destination">
+        <form class="form" action="{% url 'home' %}" method="GET" id="destination" name="SAMLResponse">
           <label class="mr-sm-2" for="inlineFormCustomSelect">SAMLResponse destination</label>
           <select class="custom-select mb-2 mr-sm-2 mb-sm-0" name="destination" id="inlineFormCustomSelect" onchange="this.form.submit()">
             <option value="absorb" selected>Absorb</option>
