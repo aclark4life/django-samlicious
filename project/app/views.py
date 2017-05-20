@@ -3,7 +3,7 @@ from django.shortcuts import render
 from datetime import datetime
 from saml import schema
 
-from onelogin.saml2 import utils
+# from onelogin.saml2 import utils
 
 from lxml import etree
 
@@ -26,7 +26,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PUBLIC_CERT = os.path.join(['project', 'certificate.crt'])
 PRIVATE_KEY = os.path.join(['project', 'private.key'])
 
-onelogin_saml2_utils = utils.OneLogin_Saml2_Utils()
+# onelogin_saml2_utils = utils.OneLogin_Saml2_Utils()
 
 
 # Create your views here.
