@@ -28,6 +28,7 @@ PRIVATE_KEY = os.path.join(['project', 'private.key'])
 
 onelogin_saml2_utils = utils.OneLogin_Saml2_Utils()
 
+
 # Create your views here.
 def create_document(destination):
 
@@ -44,6 +45,7 @@ def create_document(destination):
 
     return document
 
+
 def create_assertion(document):
     document.assertions = assertion = schema.Assertion()
 
@@ -52,6 +54,7 @@ def create_assertion(document):
 
     assertion.issuer = SAML2_RESPONSE_ISSUER
     return assertion
+
 
 def create_subject(assertion, destination):
     assertion.subject = schema.Subject()
@@ -71,6 +74,7 @@ def create_subject(assertion, destination):
     assertion.subject.confirmation = confirmation
     return data
 
+
 def create_auth_statement(assertion):
     statement = schema.AuthenticationStatement()
     assertion.statements.append(statement)
@@ -81,6 +85,7 @@ def create_auth_statement(assertion):
     reference = schema.AuthenticationContextReference
     statement.context.reference = reference.PASSWORD_PROTECTED_TRANSPORT
     return statement, reference
+
 
 def create_auth_condition(assertion, destination):
     assertion.conditions = conditions = schema.Conditions()
@@ -94,12 +99,14 @@ def create_auth_condition(assertion, destination):
 
     return conditions
 
+
 def sign_data():
     cert = open(PUBLIC_CERT).read()
     key = open(PRIVATE_KEY).read()
     root = ElementTree.fromstring(data_to_sign)
     signed_root = XMLSigner().sign(root, key=key, cert=cert)
     verified_data = XMLVerifier().verify(signed_root).signed_xml
+
 
 def create_saml_response(destination):
 
@@ -110,6 +117,7 @@ def create_saml_response(destination):
     # conditions = create_auth_condition(assertion, destination)
 
     return document.tostring()
+
 
 def home(request):
     # Configure destination here based on menu selection
@@ -126,8 +134,9 @@ def home(request):
     saml_response_pretty = etree.tostring(root, pretty_print=True)
 
     context = {
-#        'deflated_and_base64_encoded_saml_response': onelogin_saml2_utils.deflate_and_base64_encode(saml_response),
-        'deflated_and_base64_encoded_saml_response': base64.b64encode(saml_response),
+        #        'deflated_and_base64_encoded_saml_response': onelogin_saml2_utils.deflate_and_base64_encode(saml_response),
+        'deflated_and_base64_encoded_saml_response':
+        base64.b64encode(saml_response),
         'saml_response': saml_response_pretty,
         'saml2_response_destination': destination,
     }
