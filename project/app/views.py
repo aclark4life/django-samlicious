@@ -94,9 +94,9 @@ def create_saml_response(destination):
 def home(request):
     # Configure destination here based on menu selection
     destination = request.GET.get('destination')
-    try:
+    if destination:
         destination = SAML2_RESPONSE_DEST_URL[destination]
-    except KeyError:
+    else:
         destination = SAML2_RESPONSE_DEST_URL['absorb']
 
     saml_response = create_saml_response(destination)

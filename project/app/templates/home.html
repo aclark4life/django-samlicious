@@ -36,7 +36,7 @@
       <div class="collapse navbar-collapse" id="navbarsExampleDefault">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
-            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">Link</a>
@@ -71,13 +71,16 @@
         <p>{{ saml2_response_destination }}</p>
 -->
 
-        <form class="form" action="{{ saml2_response_destination }}" method="POST" id="samlform">
-
+        <!-- http://stackoverflow.com/a/7231215 -->
+        <form class="form" action="{% url 'home' %}" method="GET" id="destination">
           <label class="mr-sm-2" for="inlineFormCustomSelect">SAMLResponse destination</label>
-          <select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="inlineFormCustomSelect">
+          <select class="custom-select mb-2 mr-sm-2 mb-sm-0" name="destination" id="inlineFormCustomSelect" onchange="this.form.submit()">
             <option value="absorb" selected>Absorb</option>
             <option value="testshib">TestShib</option>
           </select><br>
+        </form>
+
+        <form class="form" action="{{ saml2_response_destination }}" method="POST" id="samlform">
 
           SAMLResponse <br><textarea rows="25" cols="150">{{ saml_response }}</textarea><br><br>
           SAMLResponse (deflated and base64 encoded) <br><textarea name="samlresponse" id="samlresponse" rows="25" cols="150">{{ deflated_and_base64_encoded_saml_response }}</textarea><br><br>
