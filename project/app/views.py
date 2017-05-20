@@ -5,6 +5,8 @@ from saml import schema
 
 from onelogin.saml2 import utils
 
+from lxml import etree
+
 saml2_utils = utils.OneLogin_Saml2_Utils()
 
 # Create your views here.
@@ -68,8 +70,13 @@ def create_saml_response():
 
 def home(request):
     saml_response = create_saml_response()
+
+    # http://stackoverflow.com/a/3974112
+    root = etree.fromstring(saml_response)
+    saml_response_pretty = etree.tostring(root, pretty_print=True)
+
     context = {
         'deflated_and_base64_encoded_saml_response': saml2_utils.deflate_and_base64_encode(saml_response),
-        'saml_response': saml_response,
+        'saml_response': saml_response_pretty,
     }
     return render(request, 'home.html', context)
