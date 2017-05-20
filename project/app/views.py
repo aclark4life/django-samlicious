@@ -96,5 +96,6 @@ def home(request):
     context = {
         'deflated_and_base64_encoded_saml_response': onelogin_saml2_utils.deflate_and_base64_encode(saml_response),
         'saml_response': saml_response_pretty,
+        'saml2_response_destination': SAML2_RESPONSE_DEST,
     }
     return render(request, 'home.html', context)
