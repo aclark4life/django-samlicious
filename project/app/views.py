@@ -117,7 +117,6 @@ def create_saml_response(destination):
     # conditions = create_auth_condition(assertion, destination)
 
     # Sign assertion
-    signature = etree.Element('Signature')
     xmldoc = document.serialize()
     root = xmldoc.getroottree()
     assertion = root.find('saml:Assertion', NAMESPACES)
