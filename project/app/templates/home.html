@@ -147,7 +147,7 @@
 
         <form class="form" action="{{ saml2_response_destination }}" method="POST" id="samlform" name="SAMLResponse">
           <textarea rows="25" cols="150">{{ saml_response }}</textarea>
-          <textarea name="samlresponse" id="samlresponse" rows="25" cols="150">{{ deflated_and_base64_encoded_saml_response }}</textarea>
+          <textarea rows="25" cols="150">{{ deflated_and_base64_encoded_saml_response }}</textarea>
           <input type="hidden" name="SAMLResponse" value="{{ deflated_and_base64_encoded_saml_response }}" />
           <button type="submit" class="btn-block btn-lg">Go Medieval</button>
         </form>

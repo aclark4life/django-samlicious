@@ -1,2 +1,2 @@
 Django
-saml
+-e git+git@github.com:mehcode/python-saml.git#egg=saml
