@@ -53,7 +53,7 @@
             </div>
           </li>
         </ul>
-        <form class="form-inline my-2 my-lg-0">
+        <form class="form my-2 my-lg-0">
           <input class="form-control mr-sm-2" type="text" placeholder="Search">
           <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
         </form>
@@ -135,21 +135,19 @@
 </samlp:Response>
         </textarea>
 
+        <h3>SAML Response</h3>
         <!-- http://stackoverflow.com/a/7231215 -->
-        <form class="form-inline my-2 my-lg-0" action="{% url 'home' %}" method="GET" id="destination"> 
-          <label class="mr-sm-2" for="inlineFormCustomSelect">SAMLResponse destination</label>
+        <form class="form" action="{% url 'home' %}" method="GET" id="destination"> 
+          <label class="mr-sm-2" for="inlineFormCustomSelect">Service Provider</label>
           <select class="custom-select mb-2 mr-sm-2 mb-sm-0" name="destination" id="inlineFormCustomSelect" onchange="this.form.submit()">
             <option value="absorb" selected>Absorb</option>
             <option value="testshib">TestShib</option>
-          </select><br>
+          </select>
         </form>
 
         <form class="form" action="{{ saml2_response_destination }}" method="POST" id="samlform" name="SAMLResponse">
-
-          SAMLResponse <br><textarea rows="25" cols="150">{{ saml_response }}</textarea><br><br>
-          SAMLResponse (deflated and base64 encoded) <br><textarea name="samlresponse" id="samlresponse" rows="25" cols="150">{{ deflated_and_base64_encoded_saml_response }}</textarea><br><br>
-<!--          RelayState <br><input type="text" name="relaystate" id="relaystate" value="...DeepLink URL..." size="100"><br> -->
-          <br>
+          <textarea rows="25" cols="150">{{ saml_response }}</textarea>
+          <textarea name="samlresponse" id="samlresponse" rows="25" cols="150">{{ deflated_and_base64_encoded_saml_response }}</textarea>
           <input type="hidden" name="SAMLResponse" value="{{ deflated_and_base64_encoded_saml_response }}" />
           <button type="submit" class="btn-block btn-lg">Go Medieval</button>
         </form>
