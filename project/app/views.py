@@ -24,6 +24,13 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PUBLIC_CERT = os.path.join(BASE_DIR, 'certificate.crt')
 PRIVATE_KEY = os.path.join(BASE_DIR, 'private.key')
 
+
+# http://stackoverflow.com/a/14853417
+NAMESPACES = {  # for pasting Signature after Issuer
+    'saml': 'urn:oasis:names:tc:SAML:2.0:assertion',
+    'samlp': 'urn:oasis:names:tc:SAML:2.0:protocol',
+}
+
 cert = open(PUBLIC_CERT).read()
 key = open(PRIVATE_KEY).read()
 
@@ -109,9 +116,13 @@ def create_saml_response(destination):
     statement, reference = create_auth_statement(assertion)
     # conditions = create_auth_condition(assertion, destination)
 
-    # xml_document = document.serialize()
-    # sign(xml_document, key)
-    # return etree.tostring(xml_document)
+    # Sign assertion
+    signature = etree.Element('Signature')
+    xmldoc = document.serialize()
+    root = xmldoc.getroottree()
+    assertion = root.find('saml:Assertion', NAMESPACES)
+    sign(assertion, key)
+    return etree.tostring(xmldoc)
 
     return document.tostring()
 
