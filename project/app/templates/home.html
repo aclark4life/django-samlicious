@@ -66,7 +66,7 @@
         <h1>Bootstrap starter template</h1>
         <p class="lead">Use this document as a way to quickly start any new project.<br> All you get is this text and a mostly barebones HTML document.</p>
 
-        <h2>OneLogin SAMLResponse Example</h2>
+        <h3>OneLogin SAMLResponse Example</h3>
 
         <textarea rows="25" cols="150">
 <samlp:Response xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion"
@@ -135,13 +135,8 @@
 </samlp:Response>
         </textarea>
 
-<!--
-        <h2>SAMLResponse destination</h2>
-        <p>{{ saml2_response_destination }}</p>
--->
-
         <!-- http://stackoverflow.com/a/7231215 -->
-        <form class="form" action="{% url 'home' %}" method="GET" id="destination"> 
+        <form class="form-inline my-2 my-lg-0" action="{% url 'home' %}" method="GET" id="destination"> 
           <label class="mr-sm-2" for="inlineFormCustomSelect">SAMLResponse destination</label>
           <select class="custom-select mb-2 mr-sm-2 mb-sm-0" name="destination" id="inlineFormCustomSelect" onchange="this.form.submit()">
             <option value="absorb" selected>Absorb</option>
